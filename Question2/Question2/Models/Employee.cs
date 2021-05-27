@@ -76,7 +76,7 @@ namespace Question2.Models
         {
             get
             {
-                return _subordinates ??= new List<Employee>();
+                return _subordinates ?? (_subordinates= new List<Employee>());
             }
             set
             {

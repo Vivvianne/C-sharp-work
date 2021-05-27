@@ -24,8 +24,23 @@ namespace Question2Console
                 
                 
             }
+
+            foreach(Employee companyEmployee in companyEmployees)
+            {
+                if(companyEmployee.ManagerId != string.Empty)
+                {
+                    Employee manager = companyEmployees.Find(employee => employee.EmployeeId == companyEmployee.ManagerId);
+                    manager.Subordinates.Add(companyEmployee);
+
+                }
+                
+            }
+            Employee employee1 = companyEmployees.Find(employee => employee.EmployeeId == "Employee1");
+            Console.WriteLine(employee1.IsCeo);
+            Console.WriteLine(employee1.Subordinates.Count);
+
             
-            Console.WriteLine((companyEmployees.Find(employee => employee.EmployeeId == "Employee4")).EmployeeId);
+           
 
         }
     }

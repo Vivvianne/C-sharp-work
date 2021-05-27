@@ -76,14 +76,14 @@ namespace Question2
 
             {
                 string[] employeeProperties = employeeRecord.Split(',');
-                Console.WriteLine(employeeProperties);
+                
             
                 return new Employee()
                 {
                     EmployeeId = employeeProperties[0],
                     ManagerId = employeeProperties[1],
                     Salary = Convert.ToInt32(employeeProperties[2]),
-                    IsCeo = employeeProperties[1] == null ? true : false
+                    IsCeo = employeeProperties[1] == string.Empty ? true : false
 
                 };
 
