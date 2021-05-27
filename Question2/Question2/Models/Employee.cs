@@ -34,25 +34,6 @@ namespace Question2.Models
         }
         #endregion
 
-
-        #region methods
-       
-        
-        public bool hasSubordinates()
-        {
-            return _subordinates.Count == 0;
-        }
-
-
-        public virtual void AddSubordinate(Employee employee)
-        {
-            Subordinates.Add(employee);
-        }
-
-        
-        #endregion
-
-
         #region Properties
 
         /// <summary>

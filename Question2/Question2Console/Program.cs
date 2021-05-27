@@ -1,8 +1,10 @@
-﻿using Question2;
+﻿using Question2.Services;
 using System.IO;
 using System;
 using Question2.Models;
 using System.Collections.Generic;
+using System.Linq;
+
 
 namespace Question2Console
 {
@@ -38,6 +40,7 @@ namespace Question2Console
             Employee employee1 = companyEmployees.Find(employee => employee.EmployeeId == "Employee1");
             Console.WriteLine(employee1.IsCeo);
             Console.WriteLine(employee1.Subordinates.Count);
+            Console.WriteLine(employee1.Subordinates.Sum(subordinate => subordinate.Salary));
 
             
            
