@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Question2.Models
 {
@@ -51,6 +52,20 @@ namespace Question2.Models
         /// </summary>
         public int Salary { get; set; }
 
+        /// <summary>
+        /// Gets or sets the budget of the employee
+        /// </summary>
+        public int Budget 
+        {
+            get 
+            {
+                return this.Salary + this.Subordinates.Sum(subordinate => subordinate.Budget);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the employee is the CEO
+        /// </summary>
         public bool IsCeo { get; set; }
 
         public List<Employee> Subordinates

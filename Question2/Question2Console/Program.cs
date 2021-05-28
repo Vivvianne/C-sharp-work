@@ -12,39 +12,37 @@ namespace Question2Console
     {
         static void Main(string[] args)
         {
-            string filetext = File.ReadAllText("employeelist.csv");
-            Employees employees = new Employees(filetext);
-            List<Employee> companyEmployees = new List<Employee>();
-            foreach(string employeeRecord in employees.EmployeesRecordsDump)
+            if (args.Length == 2)
             {
-                Employee newEmployee = employees.GetEmployeeFromDumpRecord(employeeRecord);
-                if(companyEmployees.Find(employee => employee.EmployeeId == newEmployee.EmployeeId) == null)
+                Console.WriteLine($"Reading the the file {args[0]}..... \n \n");
+                string filetext = File.ReadAllText(args[0]);
+                Employees employeesRecords = new Employees(filetext);
+                
+                Console.WriteLine($"Listing the employees from the file {args[0]}....");
+                foreach(string employeeRecordDump in employeesRecords.EmployeesRecordsDump)
                 {
-                    companyEmployees.Add(newEmployee);
-
+                    Console.WriteLine(employeeRecordDump);
                 }
-                
-                
-            }
+                Console.WriteLine("Listing Complete. \n");
 
-            foreach(Employee companyEmployee in companyEmployees)
+                Console.WriteLine("Adding the employee subordinates...\n");
+                List<Employee> employees = employeesRecords.GetEmployees(employeesRecords.EmployeesRecordsDump);
+                employees = employeesRecords.AddEmployeesSubordinates(employees);
+                Console.WriteLine("Adding employee subordinates completed\n");
+
+                Console.WriteLine($"Calculating the budget for employee by the identification {args[1]}\n");
+                EmployeeBudgetViewModel employeeBudget = employeesRecords.GetEmployeeBudget(employees.Find(employee => employee.EmployeeId == args[1]));
+
+                Console.WriteLine($"Calculation completed.");
+                Console.WriteLine($"Selected employee: {employeeBudget.SelectedEmployee}");
+                Console.WriteLine($"Employee budget: {employeeBudget.Budget}");
+            }
+            else 
             {
-                if(companyEmployee.ManagerId != string.Empty)
-                {
-                    Employee manager = companyEmployees.Find(employee => employee.EmployeeId == companyEmployee.ManagerId);
-                    manager.Subordinates.Add(companyEmployee);
-
-                }
-                
+                Console.WriteLine("The program expects two arguments:");
+                Console.WriteLine("\t 1. The file path to read employee records.");
+                Console.WriteLine("\t 2. The employee to calculate the budget for");
             }
-            Employee employee1 = companyEmployees.Find(employee => employee.EmployeeId == "Employee1");
-            Console.WriteLine(employee1.IsCeo);
-            Console.WriteLine(employee1.Subordinates.Count);
-            Console.WriteLine(employee1.Subordinates.Sum(subordinate => subordinate.Salary));
-
-            
-           
-
         }
     }
 }
